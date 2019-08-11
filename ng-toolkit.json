@@ -1,0 +1,13 @@
+{
+  "serverless": {
+    "provider": "aws",
+    "project": "GitSearchDevelopers",
+    "skipInstall": false,
+    "directory": ".",
+    "clientProject": "GitSearchDevelopers",
+    "serverless": {
+      "aws": {},
+      "gcloud": {}
+    }
+  }
+}

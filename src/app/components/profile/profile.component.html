@@ -1,0 +1,239 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">GitHub Portfolios</a>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="input-group" style="width:350px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text ">
+            <span class="fa fa-keyboard"></span>
+          </span>
+        </div>
+        <input type="text" name="username" class="form-control" placeholder="Search For A GitHub User..."
+          [(ngModel)]="username" (keydown.enter)="findDeveloper()">
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container" *ngIf="profile">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger">
+      <span class="d-none d-lg-block">
+        <img class=" img-profile rounded-circle mx-auto mb-2" src="{{profile.avatar_url}}" alt="">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#info">Profile Information</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#repos">Repositories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#stars">Starred</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <section class="resume-section p-3 p-lg-5 d-flex" id="info">
+      <div class="w-100">
+        <div class="content-heading">
+          <h1><img src="{{profile.avatar_url}}" class="img-fluid" style="margin-right:0.2em;">{{profile.name}}</h1>
+        </div>
+        <br>
+        <div class="social-icons"><a href="{{profile.html_url}}" target="_blank"><i class="fab fa-github"></i></a> <b>
+            <font size="6">@{{profile.login}}</font>
+          </b></div>
+        <br />
+        <div class="col-md-10">
+          <p>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{profile.followers}}
+              Followers</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{profile.following}}
+              Following</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{profile.public_gists}}
+              Gists</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{profile.public_repos}}
+              Repositories</span>
+          </p>
+        </div>
+        <br />
+        <p class="lead mb-2"><B>Profile biography: </B>{{profile.bio}}</p>
+        <br>
+        <div class="subheading mb-3">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="profile.hireable"><i class="fa-li fa fa-check"></i>Available for hire
+            </li>
+            <li class="list-group-item" *ngIf="profile.location"><b>Location: </b>{{profile.location}}</li>
+            <li class="list-group-item" *ngIf="profile.blog"><b>Website: </b><a href="{{profile.blog}}"
+                target="_blank">{{profile.blog}}</a></li>
+            <li class="list-group-item" *ngIf="profile.created_at"><b>Member since:
+              </b>{{profile.created_at.substring(0,10)}}</li>
+            <li class="list-group-item" *ngIf="profile.company"><b>Works for: </b>{{profile.company}}</li>
+            <li class="list-group-item" *ngIf="profile.public_repos"><b>Total repos: </b>{{profile.public_repos}}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="repos">
+      <div class="w-100">
+        <h2 class="mb-5">Repositories</h2>
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
+          *ngFor="let repo of repos|slice:0:25">
+          <div class="resume-content">
+            <h3 class="mb-0">{{repo.name}}</h3>
+            <div class="subheading mb-3">{{repo.language}} Application</div>
+            <p>{{repo.description}}</p>
+            <br>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{repo.watchers}}
+              Followers</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{repo.forks}}
+              Forks</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{repo.open_issues}}
+              Open Issues</span>
+          </div>
+
+          <div class="resume-date text-md-right">
+
+            <span class="text-primary">Created on {{repo.created_at.substring(0,10)}}
+              <br>
+              Last updated {{repo.updated_at.substring(0,10)}}<br>
+              <a href="{{repo.html_url}}" target="_blank"><b>View on GitHub</b></a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="stars">
+      <div class="w-100">
+        <h2 class="mb-5">Starred Repositories</h2>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
+          *ngFor="let star of stars|slice:0:25">
+          <div class="resume-content">
+            <h3 class="mb-0">{{star.name}}</h3>
+            <div class="subheading mb-3"><b>Author:</b> {{star.owner.login}}</div>
+            <div><b>Description: </b>{{star.description}}</div>
+            <br>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{star.watchers}}
+              Followers</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{star.forks}}
+              Forks</span>
+            <span class="badge badge-dark" style="margin-right:0.5em; font-size:13pt">{{star.open_issues}}
+              Open Issues</span>
+            <br>
+            <p>Starred by <b>{{star.stargazers_count}}</b> people </p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">Created on {{star.created_at.substring(0,10)}}
+              <br>
+              Last updated {{star.updated_at.substring(0,10)}}<br><a href="{{star.html_url}}" target="_blank"><b>View on
+                  GitHub</b></a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+      <div class="w-100">
+        <h2 class="mb-5">About GitHub Portfolios</h2>
+        <div class="p" style="font-size: large;">GitHub Portfolios is a dynamic website that allows you to search for
+          any GitHub developer and displays publicly shared information about them.
+          This website uses the official GitHub API to scrape information such as basic profile information, uploaded
+          and starred repositories and renders it in the style of
+          an online portfolio for that user. The purpose of this web application is to search for developers easily and
+          see their contributions on GitHub. <br /><br />
+          The GitHub API has a rate limit of 5000 requests per hour. If your search returns an error, the API limit
+          might have been reached for your device.
+          For more information about API rate limiting, see REST API GitHub <a
+            href="https://developer.github.com/v3/rate_limit/" target="_blank">documents</a>.
+        </div><br />
+        <p>Programmed by <b>Alejandro Parana</b></p>
+        <p>Source code for this project can be found on my <a href="" target="_blank">GitHub</a> page.</p>
+        <div class="subheading mb-3">Technology Used</div>
+        <ul class="list-inline dev-icons">
+          <li class="list-inline-item">
+            <i class="fab fa-html5"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-css3-alt"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-js-square"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-angular"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-node-js"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-npm"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-aws"></i>
+          </li>
+          <li class="list-inline-item">
+            <i class="fab fa-github"></i>
+          </li>
+        </ul>
+        <ul class="fa-ul mb-0">
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            Angular 8</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            TypeScript</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            Serverless</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            Bootstrap 4</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            JQuery</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            JSON</li>
+          <li>
+            <i class="fa-li fa fa-check"></i>
+            Official GitHub API</li>
+        </ul>
+      </div>
+    </section>
+    <hr class="m-0">
+  </div>
+</div>
+
+<div class="container">
+  <div class="container-fluid" [hidden]="profile">
+    <section class="resume-section p-3 p-lg-5 d-flex" id="about">
+      <div class="w-100">
+        <h1 class="mb-0">User Not Found
+        </h1>
+        <br>
+        <b>
+          <font size="6">The user you entered does not exist or the API limit has been exceeded for this device.
+            <br />
+            If the problem persists, Try again later.
+            <br />
+            For more information, check the console logs.
+          </font>
+        </b>
+      </div>
+    </section>
+  </div>

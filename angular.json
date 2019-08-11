@@ -20,13 +20,15 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/favicon.ico",
+              "src/fav.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", 
+              "node_modules/bootstrap/dist/js/bootstrap.min.js", 
+              "node_modules/jquery-easing/jquery.easing.1.3.js"]
           },
           "configurations": {
             "production": {
