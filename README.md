@@ -1,5 +1,7 @@
 # GitSearchDevelopers
 
+GitHub Portfolios is a dynamic website written with Angular 8 that allows you to search for any GitHub developer and displays publicly shared information about them. This website uses the official GitHub API to scrape information such as basic profile information, uploaded and starred repositories and renders it in the style of an online portfolio for that user. The purpose of this web application is to search for developers easily and see their contributions on GitHub. Deployed through Node.JS using serverless.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
 ## Development server
